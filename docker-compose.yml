@@ -1,17 +1,12 @@
-version: '3.8'
+version: '3.1'
 services:
   db:
-    container_name: postgres
     image: postgres:14.1-alpine
+    container_name: postgres-container
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=shop
+      POSTGRES_PASSWORD: nogomet
+      POSTGRES_DB: shop
     ports:
-      - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
-volumes:
-  db:
-    driver: local
+      - 5432:5432
+
