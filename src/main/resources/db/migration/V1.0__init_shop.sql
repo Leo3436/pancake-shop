@@ -1,4 +1,4 @@
-CREATE TABLE ingredients (
+CREATE TABLE IF NOT EXISTS ingredients(
     id SERIAL NOT NULL PRIMARY KEY,
     ing_name VARCHAR(50) NOT NULL UNIQUE,
     price INTEGER NOT NULL,
