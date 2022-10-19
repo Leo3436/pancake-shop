@@ -65,12 +65,31 @@ public class OrderService {
             throw new IllegalStateException("A valid pancake has to have exactly one base and at least one stuffing. This one has " + bases + " bases and " + stuffings + " stuffings.");
         }else {
 
+            Long oldPrice;
+            if(order.getTotalPrice() == null){
+                oldPrice = 0L;
+            }else{
+                oldPrice = order.getTotalPrice();   //price of the order before the new pancake is added
+            }
+
+            Long priceOfNewPancake = 0L;
+
+            for(Ingredient ingredient : ingredients){
+                priceOfNewPancake += Long.valueOf(ingredient.getPrice());    //calculates price of the new pancake
+            }
+
+            Long newFinalPrice = oldPrice + priceOfNewPancake;            //sums the old order price and the new pancake price to obtain the new total order price
+
             pancakeSet = order.getPancakesInOrder();
             pancakeSet.add(pancake);
             order.setPancakesInOrder(pancakeSet);
+            order.setTotalPrice(newFinalPrice);
             orderRepository.save(order);
         }
     }
+
+
+
 
     public void removePancakeFromOrder(Long orderId, Long pancakeId) {
 
@@ -88,6 +107,18 @@ public class OrderService {
         pancakeSet = order.getPancakesInOrder();
         if (pancakeSet.contains(pancake)) {
             pancakeSet.remove(pancake);
+
+            Long oldPrice = order.getTotalPrice();
+            Long priceOfRemovedPancake = 0L;
+            Set<Ingredient>  ingredients = pancake.getIngredientsInPancake();
+
+            for(Ingredient ingredient : ingredients){
+                priceOfRemovedPancake += Long.valueOf(ingredient.getPrice());
+            }
+            Long newPrice = oldPrice - priceOfRemovedPancake;
+
+            order.setTotalPrice(newPrice);
+
             order.setPancakesInOrder(pancakeSet);
             orderRepository.save(order);
         } else {
