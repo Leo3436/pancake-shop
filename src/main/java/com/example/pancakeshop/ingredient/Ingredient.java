@@ -1,6 +1,11 @@
 package com.example.pancakeshop.ingredient;
 
+import com.example.pancakeshop.pancake.Pancake;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ingredients")
@@ -16,6 +21,10 @@ public class Ingredient {
     private Boolean isHealthy;
     @Column(name = "type")
     private String type;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "madeOf")
+    private Set<Pancake> inPancakes = new HashSet<>();
 
 
     //CONSTRUCTOR with ID
@@ -77,6 +86,10 @@ public class Ingredient {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Set<Pancake> getInPancakes() {
+        return inPancakes;
     }
 
     @Override

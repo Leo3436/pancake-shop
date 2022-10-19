@@ -23,7 +23,7 @@ public class IngredientController {
         return ingredientService.getIngredients();
     }
 
-    //Insert a new ingredient in the database
+    //Insert a new ingredient to the database
     @PostMapping
     public void addNewIngredient(@RequestBody Ingredient ingredient){
         ingredientService.addNewIngredient(ingredient);
@@ -31,7 +31,8 @@ public class IngredientController {
 
     //Delete an ingredient by Id
     @DeleteMapping("/{ingredientId}")
-    public void deleteIngredient(@PathVariable("ingredientId") Long ingredientId){
+    public void deleteIngredient(
+            @PathVariable("ingredientId") Long ingredientId){
         ingredientService.deleteIngredient(ingredientId);
     }
 
