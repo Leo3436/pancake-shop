@@ -21,7 +21,8 @@ public class Order {
     @Column(name = "total_price")
     private Long totalPrice;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Set<Pancake> pancakesInOrder= new HashSet<>();
 
 

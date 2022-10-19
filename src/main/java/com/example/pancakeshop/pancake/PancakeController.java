@@ -29,7 +29,8 @@ public class PancakeController {
 
     //Insert a new pancake to the database
     @PostMapping
-    public void addNewPancake(@RequestBody Pancake pancake){
+    public void addNewPancake(
+            @RequestBody Pancake pancake){
         pancakeService.addNewPancake(pancake);
     }
 

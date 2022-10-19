@@ -14,7 +14,7 @@ public class Pancake {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToMany()
+
     @Column(name = "order_id")
     private Integer order;
 
