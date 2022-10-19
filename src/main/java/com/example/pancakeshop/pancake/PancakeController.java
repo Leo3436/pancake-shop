@@ -49,7 +49,7 @@ public class PancakeController {
     }
 
     //Remove an ingredient from a pancake
-    @PutMapping("/{pancakeId}/remove/ingredient/{ingredientId}")
+    @DeleteMapping("/{pancakeId}/remove/ingredient/{ingredientId}")
     public void removeFromPancake(
             @PathVariable Long pancakeId,
             @PathVariable Long ingredientId){
