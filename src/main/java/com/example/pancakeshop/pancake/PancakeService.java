@@ -62,7 +62,7 @@ public class PancakeService {
     }
 
 
-    public void removeIngredientFrompancake(Long pancakeId, Long ingredientId) {
+    public void removeIngredientFromPancake(Long pancakeId, Long ingredientId) {
 
         Set<Ingredient> ingredientSet = null;
 

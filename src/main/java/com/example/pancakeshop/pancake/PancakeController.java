@@ -54,6 +54,7 @@ public class PancakeController {
     public void removeFromPancake(
             @PathVariable Long pancakeId,
             @PathVariable Long ingredientId){
-        pancakeService.removeIngredientFrompancake(pancakeId, ingredientId);
+        pancakeService.removeIngredientFromPancake(pancakeId, ingredientId);
     }
+
 }

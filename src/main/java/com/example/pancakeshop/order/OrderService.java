@@ -1,5 +1,6 @@
 package com.example.pancakeshop.order;
 
+import com.example.pancakeshop.ingredient.Ingredient;
 import com.example.pancakeshop.pancake.Pancake;
 import com.example.pancakeshop.pancake.PancakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,31 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalStateException(
                         "Pancake with id " + pancakeId + " does not exist."));
 
-        pancakeSet = order.getPancakesInOrder();
-        pancakeSet.add(pancake);
-        order.setPancakesInOrder(pancakeSet);
-        orderRepository.save(order);
+        //check if pancake is valid?
+        Set<Ingredient>  ingredients = pancake.getIngredientsInPancake();
+        int bases = 0;
+        int stuffings = 0;
+        for(Ingredient ingredient :  ingredients){
+            if(ingredient.getType().equals("base")){
+                bases++;
+            }
+            if(ingredient.getType().equals("stuffing")){
+                stuffings++;
+            }
+        }
 
+        //if the new pancake has 0 or more than one bases it's not valid and the exception is thrown
+        //if the new pancake has less than 1 stuffing it's not valid and the exception is thrown
+        //otherwise it's valid and it's added to the order
+        if(bases != 1 || stuffings < 1){
+            throw new IllegalStateException("A valid pancake has to have exactly one base and at least one stuffing. This one has " + bases + " bases and " + stuffings + " stuffings.");
+        }else {
+
+            pancakeSet = order.getPancakesInOrder();
+            pancakeSet.add(pancake);
+            order.setPancakesInOrder(pancakeSet);
+            orderRepository.save(order);
+        }
     }
 
     public void removePancakeFromOrder(Long orderId, Long pancakeId) {
@@ -63,12 +84,13 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalStateException(
                         "Pancake with id " + pancakeId + " does not exist."));
 
+
         pancakeSet = order.getPancakesInOrder();
-        if(pancakeSet.contains(pancake)){
+        if (pancakeSet.contains(pancake)) {
             pancakeSet.remove(pancake);
             order.setPancakesInOrder(pancakeSet);
             orderRepository.save(order);
-        }else{
+        } else {
             throw new IllegalStateException("Pancake with id " + pancakeId + " is not in order with id " + orderId);
         }
     }
