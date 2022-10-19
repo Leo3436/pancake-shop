@@ -64,4 +64,13 @@ public class Pancake {
 
     private class Order {
     }
+
+    @Override
+    public String toString() {
+        return "Pancake{" +
+                "id=" + id +
+                ", order=" + order +
+                ", madeOf=" + madeOf +
+                '}';
+    }
 }
