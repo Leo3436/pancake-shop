@@ -1,8 +1,7 @@
 package com.example.pancakeshop.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/order")
@@ -12,5 +11,13 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService orderService){
         this.orderService = orderService;
+    }
+
+    //Create a new order by passing a description. Time is added automatically and
+    //pancakes are addes to the order individually with a Post method
+    @PostMapping
+    public void createNewOrder (
+            @RequestBody Order order){
+        orderService.createNewOrder(order);
     }
 }
