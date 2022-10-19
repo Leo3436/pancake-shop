@@ -29,4 +29,20 @@ public class OrderController {
     public List<Order> getOrders(){
         return orderService.getOrders();
     }
+
+    //Add a pancake to an order
+    @PutMapping("/{orderId}/add/pancake/{pancakeId}")
+    public void addToOrder(
+            @PathVariable Long orderId,
+            @PathVariable Long pancakeId){
+        orderService.addPancakeToOrder(orderId, pancakeId);
+    }
+
+    //Remove a pancake from an order
+    @DeleteMapping("/{orderId}/remove/pancake/{pancakeId}")
+    public void removeFromOrder(
+            @PathVariable Long orderId,
+            @PathVariable Long pancakeId){
+        orderService.removePancakeFromOrder(orderId, pancakeId);
+    }
 }
