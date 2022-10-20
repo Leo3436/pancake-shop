@@ -14,6 +14,8 @@ public class Pancake {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "price")
+    private Long price;
 
     @Column(name = "order_id")
     private Integer order;
@@ -62,6 +64,16 @@ public class Pancake {
         this.madeOf = ingredients;
     }
 
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+
+
     private class Order {
     }
 
@@ -69,8 +81,10 @@ public class Pancake {
     public String toString() {
         return "Pancake{" +
                 "id=" + id +
+                ", price=" + price +
                 ", order=" + order +
                 ", madeOf=" + madeOf +
                 '}';
     }
 }
+

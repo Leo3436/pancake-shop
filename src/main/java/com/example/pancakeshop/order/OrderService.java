@@ -72,12 +72,15 @@ public class OrderService {
                 oldPrice = order.getTotalPrice();   //price of the order before the new pancake is added
             }
 
-            Long priceOfNewPancake = 0L;
 
-            for(Ingredient ingredient : ingredients){
-                priceOfNewPancake += Long.valueOf(ingredient.getPrice());    //calculates price of the new pancake
-            }
-
+            // NOT NECESSARY because now the pancake price is stored in the pancake
+//            Long priceOfNewPancake = 0L;
+//
+//            for(Ingredient ingredient : ingredients){
+//                priceOfNewPancake += Long.valueOf(ingredient.getPrice());    //calculates price of the new pancake
+//            }
+//
+            Long priceOfNewPancake = pancake.getPrice();
             Long newFinalPrice = oldPrice + priceOfNewPancake;            //sums the old order price and the new pancake price to obtain the new total order price
 
             pancakeSet = order.getPancakesInOrder();
@@ -109,12 +112,15 @@ public class OrderService {
             pancakeSet.remove(pancake);
 
             Long oldPrice = order.getTotalPrice();
-            Long priceOfRemovedPancake = 0L;
+
             Set<Ingredient>  ingredients = pancake.getIngredientsInPancake();
 
-            for(Ingredient ingredient : ingredients){
-                priceOfRemovedPancake += Long.valueOf(ingredient.getPrice());
-            }
+//            for(Ingredient ingredient : ingredients){
+//                priceOfRemovedPancake += Long.valueOf(ingredient.getPrice());
+//            }
+
+            Long priceOfRemovedPancake = pancake.getPrice();
+
             Long newPrice = oldPrice - priceOfRemovedPancake;
 
             order.setTotalPrice(newPrice);

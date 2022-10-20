@@ -57,8 +57,32 @@ public class PancakeService {
 
         ingredientSet = pancake.getIngredientsInPancake();
         ingredientSet.add(ingredient);
+
+        double numberOfHealthyIngredients = 0;
+        Long sumOfIngredientPrice = 0L;
+
+        for(Ingredient ingredientInSet : ingredientSet){
+            sumOfIngredientPrice += Long.valueOf(ingredientInSet.getPrice());
+            if(ingredientInSet.isHealthy()){
+                numberOfHealthyIngredients++;
+            }
+        }
+
+        int numberOfIngredients = ingredientSet.size() + 1;
+        Long finalPrice = 0L;
+
+
+        double healthyPercentage = numberOfHealthyIngredients / numberOfIngredients;
+        if(healthyPercentage >= 0.75){
+            finalPrice = Double.valueOf(sumOfIngredientPrice * 0.85).longValue();
+        }else {
+            finalPrice = sumOfIngredientPrice;
+        }
+        pancake.setPrice(finalPrice);
+
         pancake.setIngredientsInPancake(ingredientSet);
         pancakeRepository.save(pancake);
+
     }
 
 

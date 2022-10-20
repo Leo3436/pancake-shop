@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS orders(
 
 CREATE TABLE IF NOT EXISTS pancakes(
     id SERIAL NOT NULL PRIMARY KEY,
+    price INTEGER,
     order_id INTEGER references orders(id)
 );
 
@@ -24,10 +25,3 @@ CREATE TABLE IF NOT EXISTS madeof(
     primary key (pancake_id, id)
 );
 
-
-
---CREATE TABLE IF NOT EXISTS pancakes_ingredients(
---    pancake_id SERIAL NOT NULL references pancakes(id),
---    ingredient_id SERIAL NOT NULL references ingredients(id),
---    primary key (pancake_id, ingredient_id)
---);
