@@ -23,17 +23,17 @@ public class OrderService {
     private PancakeRepository pancakeRepository;
 
 
-    public void createNewOrder(Order order) {
+    public Order createNewOrder(Order order) {
         LocalTime currentTime = LocalTime.now();
         order.setTime(currentTime);
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
 
-    public void addPancakeToOrder(Long orderId, Long pancakeId) {
+    public Order addPancakeToOrder(Long orderId, Long pancakeId) {
 
         Set<Pancake> pancakeSet = null;
 
@@ -73,13 +73,7 @@ public class OrderService {
             }
 
 
-            // NOT NECESSARY because now the pancake price is stored in the pancake
-//            Long priceOfNewPancake = 0L;
-//
-//            for(Ingredient ingredient : ingredients){
-//                priceOfNewPancake += Long.valueOf(ingredient.getPrice());    //calculates price of the new pancake
-//            }
-//
+
             Long priceOfNewPancake = pancake.getPrice();
             Long newFinalPrice = oldPrice + priceOfNewPancake;            //sums the old order price and the new pancake price to obtain the new total order price
 
@@ -87,14 +81,14 @@ public class OrderService {
             pancakeSet.add(pancake);
             order.setPancakesInOrder(pancakeSet);
             order.setTotalPrice(newFinalPrice);
-            orderRepository.save(order);
+            return orderRepository.save(order);
         }
     }
 
 
 
 
-    public void removePancakeFromOrder(Long orderId, Long pancakeId) {
+    public Order removePancakeFromOrder(Long orderId, Long pancakeId) {
 
         Set<Pancake> pancakeSet = null;
 
@@ -126,7 +120,7 @@ public class OrderService {
             order.setTotalPrice(newPrice);
 
             order.setPancakesInOrder(pancakeSet);
-            orderRepository.save(order);
+            return orderRepository.save(order);
         } else {
             throw new IllegalStateException("Pancake with id " + pancakeId + " is not in order with id " + orderId);
         }

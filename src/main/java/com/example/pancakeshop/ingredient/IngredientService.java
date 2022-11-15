@@ -22,7 +22,7 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
-    public void addNewIngredient(Ingredient ingredient) {
+    public Ingredient addNewIngredient(Ingredient ingredient) {
         Optional<Ingredient> ingredientOptional = ingredientRepository
                 .findIngredientByName(ingredient.getName());
 
@@ -30,7 +30,7 @@ public class IngredientService {
             throw new IllegalStateException("Ingredient with that name already exists.");
         }
 
-        ingredientRepository.save(ingredient);
+        return ingredientRepository.save(ingredient);
     }
 
     public void deleteIngredient(Long ingredientId){
@@ -42,7 +42,7 @@ public class IngredientService {
     }
 
     @Transactional
-    public void updateIngredient(Long ingredientId, String name, Integer price, String type) {
+    public Ingredient updateIngredient(Long ingredientId, String name, Integer price, String type) {
         Ingredient ingredient = ingredientRepository.findById(ingredientId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Ingredient with id " + ingredientId + " does not exist."));
@@ -58,5 +58,6 @@ public class IngredientService {
         if(type != null && type.length() > 0 && !Objects.equals(ingredient.getType(), type)){
             ingredient.setType(type);
         }
+        return ingredient;
     }
 }

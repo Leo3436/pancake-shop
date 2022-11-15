@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "fafe68aa-14c7-4cac-a03c-ed4bb44d12d5",
-		"name": "CROZ_Pancake_Shop",
+		"_postman_id": "7d048121-e3df-414b-9457-f311e792a18a",
+		"name": "Pancake_Shop",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -281,7 +281,10 @@
 					"name": "Get a list of orders",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},

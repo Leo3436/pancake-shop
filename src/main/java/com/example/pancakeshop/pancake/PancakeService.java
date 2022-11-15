@@ -39,11 +39,12 @@ public class PancakeService {
         pancakeRepository.deleteById(pancakeId);
     }
 
-    public void addNewPancake(Pancake pancake) {
-        pancakeRepository.save(pancake);
+    public Pancake addNewPancake(Pancake pancake) {
+        return pancakeRepository.save(pancake);
     }
 
-    public void addIngredientToPancake(Long pancakeId, Long ingredientId) {
+
+    public Pancake addIngredientToPancake(Long pancakeId, Long ingredientId) {
 
         Set<Ingredient> ingredientSet = null;
 
@@ -81,12 +82,12 @@ public class PancakeService {
         pancake.setPrice(finalPrice);
 
         pancake.setIngredientsInPancake(ingredientSet);
-        pancakeRepository.save(pancake);
+        return pancakeRepository.save(pancake);
 
     }
 
 
-    public void removeIngredientFromPancake(Long pancakeId, Long ingredientId) {
+    public Pancake removeIngredientFromPancake(Long pancakeId, Long ingredientId) {
 
         Set<Ingredient> ingredientSet = null;
 
@@ -106,6 +107,7 @@ public class PancakeService {
         }else{
             throw new IllegalStateException("Ingredient with id " + ingredientId + " is not in pancake with id " + pancakeId);
         }
+        return pancake;
 
     }
 

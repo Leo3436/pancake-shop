@@ -1,6 +1,8 @@
 package com.example.pancakeshop.ingredient;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,25 +27,27 @@ public class IngredientController {
 
     //Insert a new ingredient to the database
     @PostMapping
-    public void addNewIngredient(@RequestBody Ingredient ingredient){
-        ingredientService.addNewIngredient(ingredient);
+    public Ingredient addNewIngredient(@RequestBody Ingredient ingredient){
+        return ingredientService.addNewIngredient(ingredient);
     }
 
     //Delete an ingredient by Id
     @DeleteMapping("/{ingredientId}")
-    public void deleteIngredient(
+    public ResponseEntity<String> deleteIngredient(
             @PathVariable("ingredientId") Long ingredientId){
         ingredientService.deleteIngredient(ingredientId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Ingredient deleted.");
     }
 
     //Update an ingredient's name and/or price and/or type
     @PutMapping("/{ingredientId}")
-    public void updateIngredient(
+    public Ingredient updateIngredient(
             @PathVariable("ingredientId") Long ingredientId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer price,
             @RequestParam(required = false) String type){
-        ingredientService.updateIngredient(ingredientId, name, price, type);
+        return ingredientService.updateIngredient(ingredientId, name, price, type);
     }
 
 }

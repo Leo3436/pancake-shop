@@ -16,11 +16,11 @@ public class OrderController {
     }
 
     //Creates a new order by passing a description. Time is added automatically and
-    //pancakes are addes to the order individually with a Post method
+    //pancakes are adds to the order individually with a Post method
     @PostMapping
-    public void createNewOrder (
+    public Order createNewOrder (
             @RequestBody Order order){
-        orderService.createNewOrder(order);
+        return orderService.createNewOrder(order);
     }
 
 
@@ -32,17 +32,17 @@ public class OrderController {
 
     //Add a pancake to an order
     @PutMapping("/{orderId}/add/pancake/{pancakeId}")
-    public void addToOrder(
+    public Order addToOrder(
             @PathVariable Long orderId,
             @PathVariable Long pancakeId){
-        orderService.addPancakeToOrder(orderId, pancakeId);
+        return orderService.addPancakeToOrder(orderId, pancakeId);
     }
 
     //Remove a pancake from an order
     @DeleteMapping("/{orderId}/remove/pancake/{pancakeId}")
-    public void removeFromOrder(
+    public Order removeFromOrder(
             @PathVariable Long orderId,
             @PathVariable Long pancakeId){
-        orderService.removePancakeFromOrder(orderId, pancakeId);
+        return orderService.removePancakeFromOrder(orderId, pancakeId);
     }
 }
